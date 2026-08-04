@@ -10,15 +10,20 @@
 </template>
 
 <script setup>
-import { ref, onMounted  } from "vue";
-
+import { ref, onMounted } from "vue";
 import Header from "@/components/partials/Header.vue";
 import Footer from "@/components/partials/Footer.vue";
-import CallbackWidget from "./components/partials/CallbackWidget.vue";
+import CallbackWidget from "@/components/partials/CallbackWidget.vue";
 
-const callbackRef = ref();
+const callbackRef = ref(null);
+
 onMounted(() => {
+  console.log("APP REF =", callbackRef.value);
+
   window.openCallback = () => {
+    console.log("WINDOW CLICK");
+    console.log(callbackRef.value);
+
     callbackRef.value?.openModal();
   };
 });

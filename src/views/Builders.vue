@@ -72,6 +72,13 @@ const pipeline = [
         d: "We organize shipment and support throughout the project.",
     },
 ];
+const openLeadModal = () => {
+  if (window.openCallback) {
+    window.openCallback();
+  } else {
+    console.log("window.openCallback не найден");
+  }
+};
 
 const goLead = () => {
     document
@@ -106,7 +113,7 @@ const goLead = () => {
                             <button
                                 class="btn btn--primary"
                                 type="button"
-                                @click="goLead"
+                                @click="openLeadModal"
                             >
                                 {{ $t("Request conditions") }}
                             </button>
@@ -309,7 +316,8 @@ const goLead = () => {
                         <button
                             class="btn btn--primary"
                             type="button"
-                            @click="goLead"
+                            @click="openLeadModal"
+                            
                         >
                             {{ $t("Submit your application") }}
                         </button>

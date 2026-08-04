@@ -79,6 +79,13 @@ const heroList = [
     "Custom sizes",
 ];
 
+const openLeadModal = () => {
+  if (window.openCallback) {
+    window.openCallback();
+  } else {
+    console.log("window.openCallback не найден");
+  }
+};
 const goLead = () => {
     document
         .querySelector("#lead-form")
@@ -106,7 +113,7 @@ const goLead = () => {
                             <button
                                 class="btn btn--primary"
                                 type="button"
-                                @click="goLead"
+                                @click="openLeadModal"
                             >
                                 {{ $t("Get materials") }}
                             </button>
@@ -274,7 +281,7 @@ const goLead = () => {
                         <button
                             class="btn btn--primary"
                             type="button"
-                            @click="goLead"
+                            @click="openLeadModal"
                         >
                             {{ $t("Get materials") }}
                         </button>

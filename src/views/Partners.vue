@@ -4,6 +4,7 @@ import HeroSimple from "@/components/sections/HeroSimple.vue";
 
 const mounted = ref(false);
 
+
 let io;
 const revealEls = [];
 
@@ -31,11 +32,14 @@ onUnmounted(() => {
 </script>
 
 <template>
+  
   <div class="partners" :class="{ 'is-mounted': mounted }">
     <HeroSimple
-      :title="$t('Cooperation')"
-      :subtitle="$t('Stable supplies, facility support and favorable terms for construction companies, contractors and fit-out teams.')"
-    />
+  :title="$t('Cooperation')"
+  :subtitle="$t('Stable supplies, facility support and favorable terms for construction companies, contractors and fit-out teams.')"
+  :ctaText="$t('Submit your application')"
+  @openCallback="openCallback"
+/>
 
     <section class="section">
       <div class="container">
@@ -68,7 +72,12 @@ onUnmounted(() => {
           </p>
 
           <div class="heroCard__actions">
-            <a class="btn btn--primary">{{$t('Submit your application')}}</a>
+            <button
+  class="btn btn--primary"
+  @click="openCallback"
+>
+  {{$t('Submit your application')}}
+</button>
             <a class="btn btn--ghost" href="tel:+998901301010">{{$t('To call')}}</a>
           </div>
         </div>

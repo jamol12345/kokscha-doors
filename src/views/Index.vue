@@ -2,6 +2,14 @@
 import CarouselMain from "@/components/views/home/CarouselMain.vue";
 import NewProducts from "@/components/views/home/NewProducts.vue";
 import AllProducts from "@/components/views/home/AllProducts.vue";
+
+const openLeadModal = () => {
+  if (window.openCallback) {
+    window.openCallback();
+  } else {
+    console.log("window.openCallback не найден");
+  }
+};
 </script>
 
 <template>
@@ -10,16 +18,16 @@ import AllProducts from "@/components/views/home/AllProducts.vue";
 
     <div class="container">
       <div class="badges">
-        <div class="badge">{{$t('Premium doors')}}</div>
-        <div class="badge">{{$t('GOST / ISO')}}</div>
-        <div class="badge">{{$t('Up to 10 years warranty')}}</div>
-        <div class="badge">{{$t('Under the size')}}</div>
+        <div class="badge">{{ $t("Premium doors") }}</div>
+        <div class="badge">{{ $t("GOST / ISO") }}</div>
+        <div class="badge">{{ $t("Up to 10 years warranty") }}</div>
+        <div class="badge">{{ $t("Under the size") }}</div>
       </div>
 
       <section class="section">
         <div class="sectionHead">
-          <h2>{{$t('New models')}}</h2>
-          <p>{{$t('Fresh solutions for a modern interior')}}</p>
+          <h2>{{ $t("New models") }}</h2>
+          <p>{{ $t("Fresh solutions for a modern interior") }}</p>
         </div>
 
         <NewProducts />
@@ -28,8 +36,8 @@ import AllProducts from "@/components/views/home/AllProducts.vue";
       <!-- ALL PRODUCTS -->
       <section class="section">
         <div class="sectionHead">
-          <h2>{{$t('Catalog')}}</h2>
-          <p>{{$t('Choose the perfect door for your project.')}}</p>
+          <h2>{{ $t("Catalog") }}</h2>
+          <p>{{ $t("Choose the perfect door for your project.") }}</p>
         </div>
 
         <AllProducts />
@@ -38,11 +46,19 @@ import AllProducts from "@/components/views/home/AllProducts.vue";
       <!-- CTA -->
       <section class="cta">
         <div class="cta__content">
-          <h2>{{$t('Do you need help choosing?')}}</h2>
-          <p>{{$t('Leave a request and we will select the doors for your interior and budget.')}}</p>
+          <h2>{{ $t("Do you need help choosing?") }}</h2>
+          <p>
+            {{
+              $t(
+                "Leave a request and we will select the doors for your interior and budget."
+              )
+            }}
+          </p>
         </div>
 
-        <a class="btn">{{$t('Submit your application')}}</a>
+        <button class="btn" type="button" @click="openLeadModal">
+          {{ $t("Submit your application") }}
+        </button>
       </section>
 
       <!-- FORM -->

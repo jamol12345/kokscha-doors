@@ -134,6 +134,7 @@ const submitLead = async () => {
 defineExpose({
   openModal
 });
+console.log("CallbackWidget mounted");
 onUnmounted(() => {
   clearInterval(timer);
   document.body.style.overflow = "";

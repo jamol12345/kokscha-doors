@@ -1,12 +1,27 @@
 <script setup>
-import { ref, onUnmounted } from "vue";
+import { ref, computed, onUnmounted } from "vue";
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();
 
 const isOpen = ref(false);
 const fullName = ref("");
-const rawPhone = ref("998");
+
+const countries = [
+  { name: "🇺🇿 Uzbekistan", code: "998", max: 12 },
+  { name: "🇷🇺 Russia", code: "7", max: 11 },
+  { name: "🇰🇿 Kazakhstan", code: "7", max: 11 },
+  { name: "🇰🇬 Kyrgyzstan", code: "996", max: 12 },
+  { name: "🇹🇯 Tajikistan", code: "992", max: 12 },
+  { name: "🇹🇲 Turkmenistan", code: "993", max: 11 },
+  { name: "🇦🇪 UAE", code: "971", max: 12 },
+  { name: "🇹🇷 Turkey", code: "90", max: 12 },
+];
+
+const selectedCountry = ref(countries[0]);
+
+const rawPhone = ref(selectedCountry.value.code);
+
 const isSubmitting = ref(false);
 const isSuccess = ref(false);
 const errorMessage = ref("");
@@ -15,43 +30,73 @@ const secondsLeft = ref(27);
 let timer = null;
 
 const formatPhone = (digits) => {
-  const d = digits.replace(/\D/g, "").slice(0, 12);
+  const code = selectedCountry.value.code;
 
-  let result = "+998";
+  let local = digits.slice(code.length);
 
-  const part1 = d.slice(3, 5);
-  const part2 = d.slice(5, 8);
-  const part3 = d.slice(8, 10);
-  const part4 = d.slice(10, 12);
+  switch (code) {
+    // Узбекистан
+    case "998": {
+      const p1 = local.slice(0, 2);
+      const p2 = local.slice(2, 5);
+      const p3 = local.slice(5, 7);
+      const p4 = local.slice(7, 9);
 
-  if (part1) result += ` (${part1}`;
-  if (part1.length === 2) result += `)`;
-  if (part2) result += ` ${part2}`;
-  if (part3) result += `-${part3}`;
-  if (part4) result += `-${part4}`;
+      let result = `+${code}`;
 
-  return result;
+      if (p1) result += ` (${p1}`;
+      if (p1.length === 2) result += ")";
+      if (p2) result += ` ${p2}`;
+      if (p3) result += `-${p3}`;
+      if (p4) result += `-${p4}`;
+
+      return result;
+    }
+
+    // Россия / Казахстан
+    case "7": {
+      const p1 = local.slice(0, 3);
+      const p2 = local.slice(3, 6);
+      const p3 = local.slice(6, 8);
+      const p4 = local.slice(8, 10);
+
+      let result = `+${code}`;
+
+      if (p1) result += ` (${p1}`;
+      if (p1.length === 3) result += ")";
+      if (p2) result += ` ${p2}`;
+      if (p3) result += `-${p3}`;
+      if (p4) result += `-${p4}`;
+
+      return result;
+    }
+
+    // Остальные страны
+    default:
+      return "+" + digits;
+  }
 };
 
-const displayPhone = ref(formatPhone(rawPhone.value));
+const displayPhone = computed(() => formatPhone(rawPhone.value));
+
+const onCountryChange = () => {
+  rawPhone.value = selectedCountry.value.code;
+};
 
 const normalizeDigits = (value) => {
   let digits = value.replace(/\D/g, "");
 
-  if (!digits.startsWith("998")) {
-    if (digits.startsWith("8")) {
-      digits = "998" + digits.slice(1);
-    } else {
-      digits = "998" + digits.replace(/^998/, "");
-    }
+  if (!digits.startsWith(selectedCountry.value.code)) {
+    digits =
+      selectedCountry.value.code +
+      digits.replace(new RegExp("^" + selectedCountry.value.code), "");
   }
 
-  return digits.slice(0, 12);
+  return digits.slice(0, selectedCountry.value.max);
 };
 
 const onPhoneInput = (e) => {
   rawPhone.value = normalizeDigits(e.target.value);
-  displayPhone.value = formatPhone(rawPhone.value);
 };
 
 const resetTimer = () => {
@@ -60,7 +105,7 @@ const resetTimer = () => {
 
   timer = setInterval(() => {
     if (secondsLeft.value > 0) {
-      secondsLeft.value -= 1;
+      secondsLeft.value--;
     } else {
       clearInterval(timer);
     }
@@ -72,8 +117,7 @@ const openModal = () => {
   isSuccess.value = false;
   errorMessage.value = "";
   fullName.value = "";
-  rawPhone.value = "998";
-  displayPhone.value = formatPhone(rawPhone.value);
+  rawPhone.value = selectedCountry.value.code;
   resetTimer();
   document.body.style.overflow = "hidden";
 };
@@ -87,7 +131,7 @@ const closeModal = () => {
 const submitLead = async () => {
   errorMessage.value = "";
 
-  if (rawPhone.value.length !== 12) {
+  if (rawPhone.value.length < selectedCountry.value.code.length + 5) {
     errorMessage.value = t("Please enter the full phone number");
     return;
   }
@@ -96,7 +140,7 @@ const submitLead = async () => {
     isSubmitting.value = true;
 
     const payload = {
-      fullName: fullName.value, 
+      fullName: fullName.value,
       phone: `+${rawPhone.value}`,
       source: "callback_widget",
       page: window.location.pathname,
@@ -110,31 +154,24 @@ const submitLead = async () => {
       body: JSON.stringify(payload),
     });
 
-    const data = await res.json().catch(() => null);
-
-    if (!res.ok) {
-      console.error("CRM error:", data);
-      throw new Error("Ошибка отправки");
-    }
+    if (!res.ok) throw new Error();
 
     isSuccess.value = true;
-    rawPhone.value = "998";
-    displayPhone.value = formatPhone(rawPhone.value);
 
     setTimeout(() => {
       closeModal();
     }, 1500);
-  } catch (error) {
-    console.error("Submit lead error:", error);
+  } catch {
     errorMessage.value = t("Failed to send the request");
   } finally {
     isSubmitting.value = false;
   }
 };
+
 defineExpose({
-  openModal
+  openModal,
 });
-console.log("CallbackWidget mounted");
+
 onUnmounted(() => {
   clearInterval(timer);
   document.body.style.overflow = "";
@@ -161,16 +198,31 @@ onUnmounted(() => {
           ×
         </button>
 
-        <h2 class="callbackTitle">{{$t('Do you have any other questions?')}}</h2>
+        <h2 class="callbackTitle">
+          {{ $t("Do you have any other questions?") }}
+        </h2>
         <p class="callbackText">
-          {{$t('Would you like to call you back for')}}{{ secondsLeft }}{{$t(' Seconds?')}}
+          {{ $t("Would you like to call you back for") }}{{ secondsLeft
+          }}{{ $t(" Seconds?") }}
         </p>
 
         <div class="callbackTimer">
           <span class="callbackTimer__icon">◷</span>
           <span>0:{{ String(secondsLeft).padStart(2, "0") }},00</span>
         </div>
-
+        <select
+          class="callbackInput"
+          v-model="selectedCountry"
+          @change="onCountryChange"
+        >
+          <option
+            v-for="country in countries"
+            :key="country.code + country.name"
+            :value="country"
+          >
+            {{ country.name }} (+{{ country.code }})
+          </option>
+        </select>
         <input
           class="callbackInput"
           type="text"
@@ -183,7 +235,6 @@ onUnmounted(() => {
           type="tel"
           :value="displayPhone"
           @input="onPhoneInput"
-          placeholder="+998 (__) ___-__-__"
         />
 
         <button
@@ -199,12 +250,18 @@ onUnmounted(() => {
           {{ errorMessage }}
         </p>
 
-        <p v-if="isSuccess" class="callbackSuccess">{{$t('The application has been sent')}}</p>
+        <p v-if="isSuccess" class="callbackSuccess">
+          {{ $t("The application has been sent") }}
+        </p>
 
         <div class="callbackDivider"></div>
 
         <p class="callbackPolicy">
-          {{$t('By clicking the “Submit” button, you confirm your consent to the processing of personal data.')}}
+          {{
+            $t(
+              "By clicking the “Submit” button, you confirm your consent to the processing of personal data."
+            )
+          }}
         </p>
       </div>
     </div>

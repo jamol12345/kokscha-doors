@@ -119,7 +119,7 @@ const goLead = () => {
                             </button>
                             <a
                                 class="btn btn--ghost"
-                                href="tel:+998900000000"
+                                href="tel:+998901301010"
                                 >{{ $t("To call") }}</a
                             >
                         </div>

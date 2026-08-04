@@ -72,7 +72,7 @@
           Оставить заявку
         </button>
 
-        <a class="btn btn-secondary w-full mt-3 text-center" href="tel:+998900000000">
+        <a class="btn btn-secondary w-full mt-3 text-center" href="tel:+998901301010">
           Позвонить
         </a>
       </div>

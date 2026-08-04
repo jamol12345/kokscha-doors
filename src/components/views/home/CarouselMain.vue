@@ -18,7 +18,7 @@
             {{$t('Catalog')}}
           </RouterLink>
 
-          <a href="#lead-form" class="hero__btn hero__btn--light">
+          <a href="#lead-form" class="hero__btn hero__btn--light" @click="openLeadModal">
             {{$t('More detailed')}}
           </a>
         </div>
@@ -39,7 +39,16 @@
     </div>
   </section>
 </template>
+<script setup>
 
+const openLeadModal = () => {
+  if (window.openCallback) {
+    window.openCallback();
+  } else {
+    console.log("window.openCallback не найден");
+  }
+};
+</script>
 <style scoped lang="scss">
 .hero {
   min-height: calc(100vh - 124px);

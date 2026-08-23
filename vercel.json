@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://crm-kukcha.vercel.app/api/:path*"
+      "destination": "https://kukcha-doors.up.railway.app/api/:path*"
     }
   ]
 }

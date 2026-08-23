@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640" role="img" aria-labelledby="title description">
+  <title id="title">Eshik rasmi mavjud emas</title>
+  <desc id="description">Ko'kcha Eshiklari eshik belgisi</desc>
+  <rect width="640" height="640" fill="#f6f7f8"/>
+  <g transform="translate(190,120)" fill="none" stroke="#8A7B3A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M92 0 L36 20 L36 340 L92 368"/>
+    <path d="M160 32 L160 340"/>
+    <path d="M160 32 L284 68 L284 396 L160 340"/>
+    <circle cx="252" cy="232" r="10" fill="#8A7B3A" stroke="none"/>
+  </g>
+</svg>

@@ -1,6 +1,9 @@
 <template>
   <div class="products-page">
     <div class="container">
+      <h1 class="visually-hidden">
+        {{ $t("Catalog") }} — Ko'kcha Eshiklari
+      </h1>
       <div class="products-page__content">
         <Category />
 
@@ -110,6 +113,18 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .products-page__right {
   width: 100%;
 }

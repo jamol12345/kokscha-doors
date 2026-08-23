@@ -32,7 +32,7 @@
         muted
         loop
         playsinline
-        preload="auto"
+        preload="metadata"
       >
         <source src="/video/hero.mp4" type="video/mp4" />
       </video>

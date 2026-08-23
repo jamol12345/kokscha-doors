@@ -14,10 +14,8 @@ export async function loadLocales(locales) {
 const i18n = createI18n({
     allowComposition: true,
     legacy: false,
-    locale: cookies.get('locale') || 'en',
-    fallbackLocale: 'en'
+    locale: cookies.get('locale') || 'uz',
+    fallbackLocale: 'uz'
 });
-
-// generate url: http://localhost:3000/locales/generate/full?sourceLocale=en&targetLocale=zh&targetLocaleName=China
 
 export default i18n

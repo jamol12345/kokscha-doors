@@ -10,7 +10,8 @@
                             :src="data.thumbnail"
                             class="product-image"
                             @error="onImgError"
-                            alt="door"
+                            :alt="`Ko'kcha Eshiklari ${data.title} — ${data.type || 'eshik'}`"
+                            fetchpriority="high"
                         />
                     </div>
                 </div>
@@ -18,7 +19,7 @@
                 <!-- ИНФА -->
                 <div class="card-content_info">
                     <div class="product__card-name">
-                        <h2>{{ $t("Model") }} {{ data.title }}</h2>
+                        <h1>{{ $t("Model") }} {{ data.title }}</h1>
                     </div>
 
                     <!-- характеристики -->
@@ -67,7 +68,7 @@ import NewProducts from "../home/NewProducts.vue";
 const props = defineProps(["data"]);
 
 const onImgError = (e) => {
-    e.target.src = "/no-image.png";
+    e.target.src = "/no-image.svg";
 };
 
 const onLeadClick = () => {
@@ -125,8 +126,9 @@ const onLeadClick = () => {
     flex: 1;
 }
 
-.product__card-name h2 {
+.product__card-name h1 {
     margin-bottom: 10px;
+    font-size: 1.5em;
 }
 
 /* ХАРАКТЕРИСТИКИ */

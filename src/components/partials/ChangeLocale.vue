@@ -25,7 +25,8 @@ const setLocale = (code) => {
 
 watch(locale, (value) => {
   cookies.set("locale", value)
-})
+  document.documentElement.lang = value
+}, { immediate: true })
 </script>
 
 <template>

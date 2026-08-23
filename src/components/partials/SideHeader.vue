@@ -5,7 +5,7 @@
       <RouterLink to="/" class="side__logo" @click="closeAll">
         <img
           src="@/assets/img/kokscha_icon_transparent.svg"
-          alt="logo"
+          alt="Ko'kcha Eshiklari"
           width="34"
           height="34"
         />

@@ -21,7 +21,9 @@
                 <RouterLink to="/" class="header__logo">
                     <img
                         src="@/assets/img/kokscha_logo_transparent.svg"
-                        alt="Ko'kcha"
+                        alt="Ko'kcha Eshiklari"
+                        width="512"
+                        height="256"
                     />
                 </RouterLink>
                 <nav class="header__nav">

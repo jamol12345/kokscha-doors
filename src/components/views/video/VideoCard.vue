@@ -42,7 +42,7 @@ const formattedDate = computed(() => {
         :src="video.poster"
         :alt="t(video.titleKey)"
         loading="lazy"
-        @error="(e) => (e.target.src = '/no-image.png')"
+        @error="(e) => (e.target.src = '/no-image.svg')"
       />
 
       <div class="videoCard__overlay">

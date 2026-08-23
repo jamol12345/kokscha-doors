@@ -18,25 +18,25 @@
         :breakpoints="breakpoints"
       >
         <slide :key="1">
-          <img src="@/assets/img/n-partners.svg" alt="" />
+          <img src="@/assets/img/n-partners.svg" alt="" loading="lazy" />
         </slide>
         <slide :key="2">
-          <img src="@/assets/img/a-partners.svg" alt="" />
+          <img src="@/assets/img/a-partners.svg" alt="" loading="lazy" />
         </slide>
         <slide :key="3">
-          <img src="@/assets/img/apple-partners.svg" alt="" />
+          <img src="@/assets/img/apple-partners.svg" alt="" loading="lazy" />
         </slide>
         <slide :key="4">
-          <img src="@/assets/img/bnb-partners.svg" alt="" />
+          <img src="@/assets/img/bnb-partners.svg" alt="" loading="lazy" />
         </slide>
         <slide :key="5">
-          <img src="@/assets/img/Ethereum-partners.svg" alt="" />
+          <img src="@/assets/img/Ethereum-partners.svg" alt="" loading="lazy" />
         </slide>
         <slide :key="6">
-          <img src="@/assets/img/google-partners.svg" alt="" />
+          <img src="@/assets/img/google-partners.svg" alt="" loading="lazy" />
         </slide>
         <slide :key="7">
-          <img src="@/assets/img/foursquare-partners.svg" alt="" />
+          <img src="@/assets/img/foursquare-partners.svg" alt="" loading="lazy" />
         </slide>
       </carousel>
     </div>

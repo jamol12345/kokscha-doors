@@ -18,15 +18,7 @@ export default defineConfig({
         target: "https://kukcha-doors.up.railway.app",
         changeOrigin: true,
         secure: false,
-        // rewrite: (path) => path.replace(/^\/dummy/, ""),
       },
-
-      // 🔥 Лиды сюда
-      // "/api": {
-      // target: "http://localhost:5000", // или URL бэка
-      // changeOrigin: true,
-      // secure: false,
-      // },
     },
   },
 });

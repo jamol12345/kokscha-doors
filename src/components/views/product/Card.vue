@@ -6,7 +6,10 @@
         <div class="product__card-img">
             <img
                 :src="data.thumbnail"
-                @error="(e) => (e.target.src = '/no-image.png')"
+                :alt="`Ko'kcha Eshiklari ${data.title} — ${data.type || 'eshik'}`"
+                loading="lazy"
+                decoding="async"
+                @error="(e) => (e.target.src = '/no-image.svg')"
             />
         </div>
 

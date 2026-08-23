@@ -15,7 +15,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://crm-kukcha.vercel.app",
+        target: "https://kukcha-doors.up.railway.app",
         changeOrigin: true,
         secure: false,
         // rewrite: (path) => path.replace(/^\/dummy/, ""),

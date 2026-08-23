@@ -146,15 +146,6 @@ const PRIORITY_OPTIONS = [
   "Надежность и безопасность",
 ];
 
-// API base URL: set in .env as VITE_API_URL.
-const API_BASE =
-  typeof import.meta !== "undefined" &&
-  import.meta.env &&
-  import.meta.env.VITE_API_URL != null &&
-  String(import.meta.env.VITE_API_URL).trim() !== ""
-    ? String(import.meta.env.VITE_API_URL).trim().replace(/\/$/, "")
-    : "https://crm-kukcha.vercel.app";
-
 const form = reactive({
   fullName: "",
   phoneNumber: "",
@@ -221,7 +212,7 @@ async function onSubmit() {
     language: form.language,
   };
 
-  const url = `${API_BASE}/api/leads`;
+  const url = "/api/leads";
 
   try {
     const res = await fetch(url, {

@@ -78,7 +78,9 @@ export const useProductStore = defineStore("product", () => {
 
       discountPercentage: 0,
 
-      thumbnail: item.image ? "https://crm-kukcha.vercel.app" + item.image : "",
+      thumbnail: item.image
+        ? "https://kukcha-doors.up.railway.app" + item.image
+        : "",
 
       category: item.type || "doors",
 

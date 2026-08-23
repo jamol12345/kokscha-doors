@@ -146,7 +146,7 @@ const submitLead = async () => {
       page: window.location.pathname,
     };
 
-    const res = await fetch("https://crm-kukcha.vercel.app/api/leads", {
+    const res = await fetch("/api/leads", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -11,7 +11,7 @@
 
   <!-- Text -->
   <g transform="translate(190,78)">
-    <text x="0" y="0" font-size="52" font-weight="700" font-family="Georgia, 'Times New Roman', serif" fill="#111111">Ko’kscha</text>
+    <text x="0" y="0" font-size="52" font-weight="700" font-family="Georgia, 'Times New Roman', serif" fill="#111111">Ko’kcha</text>
     <text x="4" y="46" font-size="22" font-weight="700" letter-spacing="2.2"
           font-family="Arial, Helvetica, sans-serif" fill="#111111">EShIKLAR</text>
     <text x="4" y="70" font-size="16" font-weight="600" letter-spacing="1.6"

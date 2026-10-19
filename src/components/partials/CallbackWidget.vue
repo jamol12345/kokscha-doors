@@ -25,9 +25,6 @@ const rawPhone = ref(selectedCountry.value.code);
 const isSubmitting = ref(false);
 const isSuccess = ref(false);
 const errorMessage = ref("");
-const secondsLeft = ref(27);
-
-let timer = null;
 
 const formatPhone = (digits) => {
   const code = selectedCountry.value.code;
@@ -99,32 +96,17 @@ const onPhoneInput = (e) => {
   rawPhone.value = normalizeDigits(e.target.value);
 };
 
-const resetTimer = () => {
-  secondsLeft.value = 27;
-  clearInterval(timer);
-
-  timer = setInterval(() => {
-    if (secondsLeft.value > 0) {
-      secondsLeft.value--;
-    } else {
-      clearInterval(timer);
-    }
-  }, 1000);
-};
-
 const openModal = () => {
   isOpen.value = true;
   isSuccess.value = false;
   errorMessage.value = "";
   fullName.value = "";
   rawPhone.value = selectedCountry.value.code;
-  resetTimer();
   document.body.style.overflow = "hidden";
 };
 
 const closeModal = () => {
   isOpen.value = false;
-  clearInterval(timer);
   document.body.style.overflow = "";
 };
 
@@ -173,7 +155,6 @@ defineExpose({
 });
 
 onUnmounted(() => {
-  clearInterval(timer);
   document.body.style.overflow = "";
 });
 </script>
@@ -202,40 +183,47 @@ onUnmounted(() => {
           {{ $t("Do you have any other questions?") }}
         </h2>
         <p class="callbackText">
-          {{ $t("Would you like to call you back for") }}{{ secondsLeft
-          }}{{ $t(" Seconds?") }}
+          {{ $t("Leave your details and we will call you back shortly.") }}
         </p>
 
-        <div class="callbackTimer">
-          <span class="callbackTimer__icon">◷</span>
-          <span>0:{{ String(secondsLeft).padStart(2, "0") }},00</span>
-        </div>
-        <select
-          class="callbackInput"
-          v-model="selectedCountry"
-          @change="onCountryChange"
-        >
-          <option
-            v-for="country in countries"
-            :key="country.code + country.name"
-            :value="country"
+        <label class="callbackField">
+          <span class="callbackLabel">{{ $t("Country") }}</span>
+          <select
+            class="callbackInput"
+            v-model="selectedCountry"
+            @change="onCountryChange"
           >
-            {{ country.name }} (+{{ country.code }})
-          </option>
-        </select>
-        <input
-          class="callbackInput"
-          type="text"
-          v-model="fullName"
-          :placeholder="$t('Full name')"
-        />
+            <option
+              v-for="country in countries"
+              :key="country.code + country.name"
+              :value="country"
+            >
+              {{ country.name }} (+{{ country.code }})
+            </option>
+          </select>
+        </label>
 
-        <input
-          class="callbackInput"
-          type="tel"
-          :value="displayPhone"
-          @input="onPhoneInput"
-        />
+        <label class="callbackField">
+          <span class="callbackLabel">{{ $t("Full name") }}</span>
+          <input
+            class="callbackInput"
+            type="text"
+            autocomplete="name"
+            v-model="fullName"
+          />
+        </label>
+
+        <label class="callbackField">
+          <span class="callbackLabel">{{ $t("Phone number") }}</span>
+          <input
+            class="callbackInput"
+            type="tel"
+            autocomplete="tel"
+            inputmode="tel"
+            :value="displayPhone"
+            @input="onPhoneInput"
+          />
+        </label>
 
         <button
           class="callbackSubmit"
@@ -346,25 +334,24 @@ onUnmounted(() => {
   line-height: 1.5;
 }
 
-.callbackTimer {
-  margin-top: 24px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  color: #1f2937;
-  font-size: 34px;
-  font-weight: 500;
+.callbackField {
+  display: block;
+  margin-top: 18px;
+  text-align: left;
 }
 
-.callbackTimer__icon {
-  font-size: 34px;
-  color: #374151;
+.callbackLabel {
+  display: block;
+  margin: 0 6px 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
 }
 
 .callbackInput {
   width: 100%;
-  height: 68px;
-  margin-top: 28px;
+  height: 60px;
+  margin-top: 0;
   border: none;
   outline: none;
   border-radius: 20px;
@@ -455,10 +442,6 @@ onUnmounted(() => {
 
   .callbackText {
     font-size: 16px;
-  }
-
-  .callbackTimer {
-    font-size: 28px;
   }
 
   .callbackInput {

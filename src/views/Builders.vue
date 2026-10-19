@@ -207,7 +207,7 @@ const goLead = () => {
                         </div>
                     </div>
                     <div class="kpi">
-                        <div class="kpi__num">{{ $t("GUST") }}</div>
+                        <div class="kpi__num">{{ $t("GOST") }}</div>
                         <div class="kpi__text">{{ $t("Quality control") }}</div>
                     </div>
                     <div class="kpi">

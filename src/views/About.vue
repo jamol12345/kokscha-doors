@@ -110,7 +110,7 @@
                   <div class="bulletTitle">{{ $t("Modern design") }}</div>
                   <div class="bulletText">
                     {{
-                      $t("From classics to minimalism, its neat and relevant.")
+                      $t("From classics to minimalism, it's neat and relevant.")
                     }}
                   </div>
                 </div>

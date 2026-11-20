@@ -18,8 +18,8 @@ const HTML = `<!doctype html>
 <body>
   <main>
     <h1>Ведутся технические сбои</h1>
-    <p>Сайт временно недоступен. Мы уже работаем над устранением проблемы и скоро вернёмся.</p>
-    <p>Texnik nosozliklar bartaraf etilmoqda. Sayt vaqtincha ishlamaydi.</p>
+    <p><b>Владельцы сайта должны оплатить работу программистов, чтобы сайт открылся на русском и узбекском языках.</b></p>
+    <p><b>Sayt rus va o‘zbek tillarida ochilishi uchun sayt egalari dasturchilarga to‘lov qilishi kerak.</b></p>
   </main>
 </body>
 </html>`;
